@@ -1,0 +1,50 @@
+/* Navbar styling */
+.custom-navbar {
+    background-color: #343a40; /* Dark gray background */
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-nav {
+    align-items: center;
+}
+
+.nav-item {
+    margin: 0 10px;
+}
+
+.nav-link {
+    color: #ffffff; /* White text */
+    font-size: 16px;
+    transition: color 0.3s;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.nav-link:hover, .nav-link:focus {
+    color: #007BFF; /* Change text color on hover/focus */
+    background-color: rgba(255, 255, 255, 0.1); /* Slight white background on hover/focus */
+    text-decoration: none;
+}
+
+.custom-link {
+    border: 1px solid transparent;
+}
+
+.custom-link:hover, .custom-link:focus {
+    border-color: #007BFF; /* Blue border on hover/focus */
+}
+
+/* Logout button styling */
+.nav-link[routerLink=""] {
+    background-color: #dc3545; /* Red background for logout */
+    color: #ffffff; /* White text */
+    padding: 5px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.nav-link[routerLink=""]:hover, .nav-link[routerLink=""]:focus {
+    background-color: #c82333; /* Darker red on hover/focus */
+    text-decoration: none;
+}

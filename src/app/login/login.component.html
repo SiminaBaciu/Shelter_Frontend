@@ -1,0 +1,35 @@
+<div class="header-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="container box">
+                    <div class="row">
+                        <div class="col-12">
+                            <div *ngIf="loginError" class="alert alert-danger mt-3" role="alert">{{loginError}}</div>
+                            <form [formGroup]="formData" (ngSubmit)="onClickSubmit(formData.value)" class="form-signin">
+                                <h2 class="form-signin-heading">Please sign in</h2>
+
+                                <div class="input-container">
+                                    <div class="error-message"
+                                        *ngIf="formData?.get('username')?.errors?.['required'] && formData.get('username')?.touched">
+                                        Username is required.
+                                    </div>
+                                    <input type="text" formControlName="username" placeholder="Username">
+                                </div>
+
+                                <div class="input-container">
+                                    <div class="error-message"
+                                        *ngIf="formData?.get('password')?.errors?.['required'] && formData.get('password')?.touched">
+                                        Password is required.
+                                    </div>
+                                    <input type="password" formControlName="password" placeholder=" Password">
+                                </div>
+
+                                <button class="nav-item nav-link custom-link" type="submit"> Sign in</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

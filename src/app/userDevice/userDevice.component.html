@@ -1,0 +1,27 @@
+<app-navbar></app-navbar>
+<div class="container">
+    <h2>Your Devices</h2>
+
+    <div *ngIf="userDevices.length === 0">
+        <p>You don't have any devices registered yet.</p>
+    </div>
+
+    <table *ngIf="userDevices.length > 0" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Address</th>
+                <th>Description</th>
+                <th>User id</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let device of userDevices">
+                <td>{{ device.address }}</td>
+                <td>{{ device.description }}</td>
+                <td>{{ device.userId }}</td>
+                <td>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

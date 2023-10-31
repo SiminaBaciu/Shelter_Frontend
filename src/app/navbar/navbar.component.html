@@ -1,0 +1,15 @@
+<nav class="navbar navbar-expand custom-navbar w-100" *ngIf="isUserLoggedIn">
+    <div class="navbar-nav w-100">
+        <ng-container *ngIf="isAdmin">
+            <a class="nav-item nav-link custom-link" routerLink="/users">User</a>
+            <a class="nav-item nav-link custom-link" routerLink="/device/getAllDevices">Device</a>
+        </ng-container>
+
+        <ng-container *ngIf="isUser">
+            <a class="nav-item nav-link custom-link" routerLink="/device/getUserDevices">Device</a>
+        </ng-container>
+
+        <a class="nav-item nav-link custom-link" routerLink="" (click)="logout()">Logout</a>
+            
+    </div>
+</nav>
