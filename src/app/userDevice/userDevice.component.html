@@ -12,6 +12,7 @@
                 <th>Address</th>
                 <th>Description</th>
                 <th>User id</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -20,8 +21,31 @@
                 <td>{{ device.description }}</td>
                 <td>{{ device.userId }}</td>
                 <td>
+                    <button (click)="onShowChart(device.id)">Show Chart</button>
                 </td>
             </tr>
         </tbody>
     </table>
+
+    <div *ngIf="selectedDeviceId !== null">
+        <mat-form-field appearance="fill">
+            <mat-label>Start Date</mat-label>
+            <input matInput [matDatepicker]="picker1" [(ngModel)]="startDate">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>End Date</mat-label>
+            <input matInput [matDatepicker]="picker2" [(ngModel)]="endDate">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+
+        <button (click)="fetchData()">Fetch Data</button>
+
+        <div style="width: 100%;">
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
 </div>

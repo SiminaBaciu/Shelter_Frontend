@@ -15,6 +15,14 @@ import { JwtInterceptor } from './jwt.interceptor';
 import { NavbarComponent } from './navbar/navbar.component';
 import { DeviceComponent } from './device/device.component';
 import { UserDeviceComponent } from './userDevice/userDevice.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
+import { SensorDataComponent } from './monitoring/monitoring.component';
+import { NgChartsModule } from 'ng2-charts';
+import { WebSocketService } from './notification/websockets.service';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -25,7 +33,8 @@ import { UserDeviceComponent } from './userDevice/userDevice.component';
     AuthenticatedComponent, 
     NavbarComponent,
     DeviceComponent,
-    UserDeviceComponent
+    UserDeviceComponent,
+    SensorDataComponent
   ],
   imports: [
     BrowserModule,
@@ -34,9 +43,15 @@ import { UserDeviceComponent } from './userDevice/userDevice.component';
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatNativeDateModule,
+    BrowserAnimationsModule,
+    NgChartsModule,
+    MatSnackBarModule,
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

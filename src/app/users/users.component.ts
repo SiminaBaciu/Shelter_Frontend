@@ -3,6 +3,7 @@ import { User, UserService } from '../users/users.service';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { WebSocketService } from '../notification/websockets.service';
 
 @Component({
     selector: 'app-users',
@@ -18,7 +19,9 @@ export class UsersComponent implements OnInit {
     addUserForm: FormGroup;
     updateUserForm: FormGroup;
 
-    constructor(private userService: UserService, private authService: AuthService) {
+    notifications: string[] = [];
+
+    constructor(private userService: UserService, private authService: AuthService, private webSocketService: WebSocketService) {
         this.addUserForm = new FormGroup({
             username: new FormControl('', Validators.required),
             password: new FormControl('', Validators.required),
@@ -34,6 +37,7 @@ export class UsersComponent implements OnInit {
         this.userService.getAllUsers().subscribe(
             data => {
                 this.users = data;
+
             },
             error => {
                 console.error('Error in fetching users: ', error);
@@ -41,12 +45,14 @@ export class UsersComponent implements OnInit {
             }
         );
 
+      
+
     }
 
     private resetErrors(): void {
         this.usernameError = null;
         this.roleError = null;
-        this.passwordError = "password required"; // reset if required
+        this.passwordError = "password required";
     }
 
     addUser(): void {
@@ -110,5 +116,11 @@ export class UsersComponent implements OnInit {
         }
     }
 
+    /*
+        ngOnDestroy() {
+            this.webSocketService.disconnect();
+        }
+    */
 }
+
 

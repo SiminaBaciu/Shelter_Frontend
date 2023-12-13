@@ -13,7 +13,8 @@
         <form [formGroup]="addUserForm" (ngSubmit)="addUser()">
             <div class="form-container">
                 <div class="input-container">
-                    <input type="text" formControlName="username" placeholder=" Username" (input)="usernameError = null">
+                    <input type="text" formControlName="username" placeholder=" Username"
+                        (input)="usernameError = null">
                     <div class="error-message"
                         *ngIf="addUserForm?.get('username')?.errors?.['required'] && addUserForm.get('username')?.touched">
                         Username is required.
@@ -21,7 +22,8 @@
                 </div>
 
                 <div class="input-container">
-                    <input type="text" formControlName="password" placeholder="Password " (input)="passwordError = null">
+                    <input type="text" formControlName="password" placeholder="Password "
+                        (input)="passwordError = null">
                     <div class="error-message"
                         *ngIf="addUserForm?.get('password')?.errors?.['required'] && addUserForm.get('password')?.touched">
                         Password is required.
@@ -37,6 +39,12 @@
                 </div>
             </div>
             <button type="submit" [disabled]="!addUserForm.valid"> Add user </button>
+            <!-- your.component.html -->
+
+            <div *ngFor="let notification of notifications">
+                {{ notification }}
+            </div>
+
         </form>
 
 
@@ -100,6 +108,5 @@
             <button type="submit" [disabled]="!updateUserForm.valid">Save</button>
             <button type="button" (click)="selectedUser = null">Cancel</button>
         </form>
-
     </div>
 </div>
