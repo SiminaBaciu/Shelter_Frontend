@@ -23,6 +23,8 @@ import { SensorDataComponent } from './monitoring/monitoring.component';
 import { NgChartsModule } from 'ng2-charts';
 import { WebSocketService } from './notification/websockets.service';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AdminChatComponent } from './chat/adminChat.component';
+import { UserChatComponent } from './chat/userChat.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     NavbarComponent,
     DeviceComponent,
     UserDeviceComponent,
-    SensorDataComponent
+    SensorDataComponent, 
+    AdminChatComponent,
+    UserChatComponent
   ],
   imports: [
     BrowserModule,
