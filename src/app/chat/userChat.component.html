@@ -1,8 +1,12 @@
-<div class="chat-window">
-    <div *ngFor="let message of messages">
-      <p>{{message.content}}</p>
+<div class="chat-container">
+  <h2>User Chat</h2>
+  <div class="messages">
+    <div *ngFor="let message of messages" class="message">
+      <p><strong>{{message.senderId === 6 ? 'Admin' : 'You'}}:</strong> {{message.content}}</p>
     </div>
-    <input [(ngModel)]="newMessage" placeholder="Type a message...">
+  </div>
+  <div class="send-message">
+    <input [(ngModel)]="newMessage" (keyup)="onInputChange()" placeholder="Type a message...">
     <button (click)="sendMessage()">Send</button>
   </div>
-  
+</div>

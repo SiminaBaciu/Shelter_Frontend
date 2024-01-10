@@ -88,3 +88,26 @@ button[disabled] {
 .table-striped tbody tr:nth-of-type(odd) {
     background-color: #f9f9f9;
 }
+
+/* styles.css or users.component.css */
+
+.users-list {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.users-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.users-list li {
+    cursor: pointer;
+    padding: 5px 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.users-list li:hover {
+    background-color: #f8f8f8;
+}

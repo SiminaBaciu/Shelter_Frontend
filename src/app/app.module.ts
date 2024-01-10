@@ -38,6 +38,8 @@ import { UserChatComponent } from './chat/userChat.component';
     UserDeviceComponent,
     SensorDataComponent, 
     AdminChatComponent,
+    UserChatComponent,
+    AdminChatComponent,
     UserChatComponent
   ],
   imports: [

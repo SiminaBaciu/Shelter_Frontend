@@ -68,6 +68,8 @@
                     <td style="white-space: nowrap">
                         <button (click)="deleteUser(user)">Delete</button>
                         <button (click)="selectForUpdate(user)">Update</button>
+                        <button (click)="selectForMessaging(user)">Message</button>
+
                     </td>
                 </tr>
                 <tr *ngIf="!users">
@@ -108,5 +110,15 @@
             <button type="submit" [disabled]="!updateUserForm.valid">Save</button>
             <button type="button" (click)="selectedUser = null">Cancel</button>
         </form>
+        
     </div>
+    <div *ngIf="selectedUser">
+        <form [formGroup]="updateUserForm" (ngSubmit)="updateUser()">
+          <!-- Your Update User Form Fields -->
+          <button type="submit" [disabled]="!updateUserForm.valid">Save</button>
+          <button type="button" (click)="cancelUpdate()">Cancel</button>
+        </form>
+      </div>
+  
+
 </div>

@@ -10,6 +10,8 @@ import { DeviceComponent } from './device/device.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { UserDeviceComponent } from './userDevice/userDevice.component';
 import { SensorDataComponent } from './monitoring/monitoring.component';
+import { AdminChatComponent } from './chat/adminChat.component';
+import { UserChatComponent } from './chat/userChat.component';
 
 const routes: Routes = [
   { path: 'auth/login', component: LoginComponent },
@@ -19,6 +21,8 @@ const routes: Routes = [
   { path: 'device/getUserDevices', component: UserDeviceComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_USER'] } },
   { path: 'device/getAllDevices', component: DeviceComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN'] } },
   { path: 'sensor-data', component: SensorDataComponent, canActivate: [AuthGuard] },
+  { path: 'admin-chat', component: AdminChatComponent },
+  { path: 'user-chat', component: UserChatComponent },
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' }
 ];
 

@@ -1,8 +1,18 @@
-<div class="chat-window">
-    <div *ngFor="let message of messages">
-      <p>{{message.content}}</p>
+<div *ngFor="let userId of getActiveChatIds()" class="chat-container">
+    <h2>Chat with {{ activeChats[userId].user.username }}</h2>
+    <div class="messages">
+        <ng-container *ngFor="let message of activeChats[userId].messages">
+            <div class="message">
+                <p><strong>{{ message.senderId === userId ? activeChats[userId].user.username : 'You' }}:</strong> {{ message.content }}</p>
+            </div>
+        </ng-container>
+        <div *ngIf="activeChats[userId].isTyping">User typing...</div>
+
+          
     </div>
-    <input [(ngModel)]="newMessage" placeholder="Type a message...">
-    <button (click)="sendMessage()">Send</button>
-  </div>
-  
+    <div class="send-message">
+        <input [(ngModel)]="activeChats[userId].newMessage" placeholder="Type a message...">
+        <button (click)="sendMessage(userId)">Send</button>
+        <button (click)="closeChat(userId)">Close Chat</button>
+    </div>
+</div>

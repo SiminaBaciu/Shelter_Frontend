@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { AuthService } from '../auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { WebSocketService } from '../notification/websockets.service';
+import { Router } from '@angular/router';
+import { SharedService } from '../chat/shared.service';
 
 @Component({
     selector: 'app-users',
@@ -13,6 +15,7 @@ import { WebSocketService } from '../notification/websockets.service';
 export class UsersComponent implements OnInit {
     users: User[] = [];
     selectedUser: User | null = null;
+    messagedUser: User | null = null;
     usernameError: string | null = null;
     roleError: string | null = null;
     passwordError: string | null = "password required"
@@ -21,7 +24,7 @@ export class UsersComponent implements OnInit {
 
     notifications: string[] = [];
 
-    constructor(private userService: UserService, private authService: AuthService, private webSocketService: WebSocketService) {
+    constructor(private sharedService: SharedService, private userService: UserService, private authService: AuthService, private webSocketService: WebSocketService, private router: Router) {
         this.addUserForm = new FormGroup({
             username: new FormControl('', Validators.required),
             password: new FormControl('', Validators.required),
@@ -45,7 +48,7 @@ export class UsersComponent implements OnInit {
             }
         );
 
-      
+
 
     }
 
@@ -121,6 +124,17 @@ export class UsersComponent implements OnInit {
             this.webSocketService.disconnect();
         }
     */
+        selectForMessaging(user: User): void {
+            this.sharedService.changeUser(user);
+            this.router.navigate(['/admin-chat']);
+        }
+        
+
+
+    cancelUpdate(): void {
+        this.selectedUser = null;
+    }
+
 }
 
 

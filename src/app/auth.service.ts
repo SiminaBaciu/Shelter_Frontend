@@ -80,7 +80,16 @@ export class AuthService {
     return this.userValue;
   }
 
-
+  isAdmin(): boolean {
+    let storeData = localStorage.getItem('userValue');
+    if (storeData) {
+      const userValue: UserValue = JSON.parse(storeData);
+      // Assuming 'ROLE_ADMIN' is the role you use to identify admins
+      return userValue.roles.some(role => role.authority === 'ROLE_ADMIN');
+    }
+    return false;
+  }
+  
   getRole(): string | null {
     this.getUserValue();
     return this.userValue.roles && this.userValue.roles.length > 0 ? this.userValue.roles[0].authority : null;

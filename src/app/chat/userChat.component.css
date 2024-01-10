@@ -1,0 +1,41 @@
+/* styles.css or component-specific CSS file */
+
+.chat-container {
+    border: 1px solid #ddd;
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
+}
+
+.messages {
+    height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.message {
+    margin-bottom: 15px;
+}
+
+.send-message {
+    display: flex;
+}
+
+.send-message input {
+    flex-grow: 1;
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+}
+
+.send-message button {
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.selected-user p {
+    font-weight: bold;
+    color: #333;
+}
