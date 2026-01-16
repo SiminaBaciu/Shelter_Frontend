@@ -1,0 +1,196 @@
+<app-navbar></app-navbar>
+
+<div class="p-4">
+  <div class="container">
+    <h1>Animals</h1>
+
+    <div *ngIf="error" class="alert alert-danger">
+      {{ error }}
+    </div>
+
+    <!-- NOTIFICATIONS -->
+    <div *ngIf="notifications.length" class="alert alert-info">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <strong>Notifications</strong>
+        <button type="button" (click)="clearNotifications()">Clear</button>
+      </div>
+
+      <div *ngFor="let n of notifications | slice:0:5">
+        {{ n }}
+      </div>
+      <small *ngIf="notifications.length > 5">
+        Showing newest 5 ({{ notifications.length }} total)
+      </small>
+    </div>
+
+    <!-- ADD ANIMAL (ADMIN ONLY) -->
+    <form *ngIf="isAdmin" [formGroup]="addAnimalForm" (ngSubmit)="addAnimal()">
+      <div class="form-container">
+        <div class="input-container">
+          <input type="text" formControlName="name" placeholder="Name" />
+          <div class="error-message"
+               *ngIf="addAnimalForm.get('name')?.errors?.['required'] && addAnimalForm.get('name')?.touched">
+            Name is required.
+          </div>
+        </div>
+
+        <div class="input-container">
+          <input type="text" formControlName="breedName" placeholder="Breed" />
+          <div class="error-message"
+               *ngIf="addAnimalForm.get('breedName')?.errors?.['required'] && addAnimalForm.get('breedName')?.touched">
+            Breed is required.
+          </div>
+        </div>
+
+        <div class="input-container">
+          <input type="number" formControlName="age" placeholder="Age" />
+          <div class="error-message"
+               *ngIf="addAnimalForm.get('age')?.errors?.['required'] && addAnimalForm.get('age')?.touched">
+            Age is required.
+          </div>
+        </div>
+
+        <div class="input-container">
+          <input type="date" formControlName="arrivalDate" />
+          <div class="error-message"
+               *ngIf="addAnimalForm.get('arrivalDate')?.errors?.['required'] && addAnimalForm.get('arrivalDate')?.touched">
+            Arrival date is required.
+          </div>
+        </div>
+
+        <div class="input-container">
+          <input type="text" formControlName="color" placeholder="Color" />
+          <div class="error-message"
+               *ngIf="addAnimalForm.get('color')?.errors?.['required'] && addAnimalForm.get('color')?.touched">
+            Color is required.
+          </div>
+        </div>
+
+        <div class="input-container">
+          <input type="text" formControlName="size" placeholder="Size" />
+          <div class="error-message"
+               *ngIf="addAnimalForm.get('size')?.errors?.['required'] && addAnimalForm.get('size')?.touched">
+            Size is required.
+          </div>
+        </div>
+
+        <div class="input-container">
+          <input type="text" formControlName="status" placeholder="Status" />
+          <div class="error-message"
+               *ngIf="addAnimalForm.get('status')?.errors?.['required'] && addAnimalForm.get('status')?.touched">
+            Status is required.
+          </div>
+        </div>
+
+        <div class="input-container">
+          <input type="text" formControlName="primaryCode" placeholder="Primary code" />
+          <div class="error-message"
+               *ngIf="addAnimalForm.get('primaryCode')?.errors?.['required'] && addAnimalForm.get('primaryCode')?.touched">
+            Primary code is required.
+          </div>
+        </div>
+
+        <div class="input-container">
+          <input type="text" formControlName="secondaryCode" placeholder="Secondary code (optional)" />
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="!addAnimalForm.valid">Add animal</button>
+    </form>
+
+    <!-- TABLE -->
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th style="width: 8%">Id</th>
+          <th style="width: 15%">Name</th>
+          <th style="width: 15%">Breed</th>
+          <th style="width: 8%">Age</th>
+          <th style="width: 12%">Arrival</th>
+          <th style="width: 10%">Color</th>
+          <th style="width: 10%">Size</th>
+          <th style="width: 10%">Status</th>
+          <th style="width: 10%">Months</th>
+
+          <!-- USER ONLY -->
+          <th *ngIf="isUser">Adopt</th>
+
+          <!-- ADMIN ONLY -->
+          <th *ngIf="isAdmin">Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let a of animals">
+          <td>{{ a.id }}</td>
+          <td>{{ a.name }}</td>
+          <td>{{ a.breedName }}</td>
+          <td>{{ a.age }}</td>
+          <td>{{ a.arrivalDate | date:'yyyy-MM-dd' }}</td>
+          <td>{{ a.color }}</td>
+          <td>{{ a.size }}</td>
+          <td>{{ a.status }}</td>
+          <td>{{ a.monthsInShelter }}</td>
+
+          <!-- USER ONLY: Adopt button -->
+          <td *ngIf="isUser">
+            <button (click)="adoptAnimal(a.id)">Adopt</button>
+          </td>
+
+          <!-- ADMIN ONLY: Actions -->
+          <td *ngIf="isAdmin" style="white-space: nowrap">
+            <button (click)="deleteAnimal(a.id)">Delete</button>
+            <button (click)="selectForUpdate(a)">Update</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- UPDATE FORM (ADMIN ONLY) -->
+    <form *ngIf="isAdmin && selectedAnimal" [formGroup]="updateAnimalForm" (ngSubmit)="updateAnimal()">
+      <h3>Update Animal</h3>
+
+      <div class="form-container">
+        <div class="input-container">
+          <input type="text" formControlName="name" placeholder="Name" />
+        </div>
+
+        <div class="input-container">
+          <input type="text" formControlName="breedName" placeholder="Breed" />
+        </div>
+
+        <div class="input-container">
+          <input type="number" formControlName="age" placeholder="Age" />
+        </div>
+
+        <div class="input-container">
+          <input type="date" formControlName="arrivalDate" />
+        </div>
+
+        <div class="input-container">
+          <input type="text" formControlName="color" placeholder="Color" />
+        </div>
+
+        <div class="input-container">
+          <input type="text" formControlName="size" placeholder="Size" />
+        </div>
+
+        <div class="input-container">
+          <input type="text" formControlName="status" placeholder="Status" />
+        </div>
+
+        <div class="input-container">
+          <input type="text" formControlName="primaryCode" placeholder="Primary code" />
+        </div>
+
+        <div class="input-container">
+          <input type="text" formControlName="secondaryCode" placeholder="Secondary code (optional)" />
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="!updateAnimalForm.valid">Save</button>
+      <button type="button" (click)="cancelUpdate()">Cancel</button>
+    </form>
+
+  </div>
+</div>

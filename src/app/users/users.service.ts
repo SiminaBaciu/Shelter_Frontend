@@ -1,44 +1,41 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environment/environment';
 
 export interface User {
-    id: number;
-    username: string;
-    password: string;
-    roleName: string;
+  id: number;
+  username: string;
+  password: string;
+  roleName: string;
 }
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
-
 export class UserService {
-    constructor(private postService: HttpClient) { }
 
-    getAllUsers(): Observable<any> {
-        const postBody = {};
-        const postUrl = 'http://localhost:8081/users/getallusers';
+  private baseUrl = environment.animalBaseUrl; // -> /api
 
-        return this.postService.post(postUrl, postBody);
-    }
+  constructor(private http: HttpClient) {}
 
-    createUser(user: User): Observable<any> {
-        const postUrl = 'http://localhost:8081/users';
-        return this.postService.post(postUrl, user);
-    }
+  getAllUsers(): Observable<any> {
+    return this.http.post(`${this.baseUrl}/users/getallusers`, {});
+  }
 
-    deleteUser(user: User): Observable<any> {
-        const postUrl = 'http://localhost:8081/users/deleteUser';
-        return this.postService.post(postUrl, user);
-    }
-    updateUser(user: User): Observable<any> {
-        const postUrl = 'http://localhost:8081/users/update';
-        return this.postService.post(postUrl, user);
-    }
+  createUser(user: User): Observable<any> {
+    return this.http.post(`${this.baseUrl}/users`, user);
+  }
 
-    getUserIdByUsername(username: string): Observable<number> {
-        const postUrl = 'http://localhost:8081/users'
-        return this.postService.post<number>(`postUrl/getId`, { username: username });
-      }
+  deleteUser(user: User): Observable<any> {
+    return this.http.post(`${this.baseUrl}/users/deleteUser`, user);
+  }
+
+  updateUser(user: User): Observable<any> {
+    return this.http.post(`${this.baseUrl}/users/update`, user);
+  }
+
+  getUserIdByUsername(username: string): Observable<number> {
+    return this.http.post<number>(`${this.baseUrl}/users/getId`, { username });
+  }
 }

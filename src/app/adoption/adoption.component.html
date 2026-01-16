@@ -1,0 +1,61 @@
+<app-navbar></app-navbar>
+
+<div class="p-4">
+  <div class="container">
+    <h1>Adoptions</h1>
+
+    <div *ngIf="error" class="alert alert-danger">
+      {{ error }}
+    </div>
+
+    <!-- Create (USER + ADMIN) -->
+    <form [formGroup]="addForm" (ngSubmit)="add()">
+      <div class="form-container">
+        <div class="input-container">
+          <input type="number" formControlName="animalId" placeholder="Animal ID" />
+        </div>
+
+        <div class="input-container">
+          <input type="date" formControlName="adoptionDate" />
+        </div>
+
+        <div class="input-container">
+          <label style="display:flex; gap:8px; align-items:center;">
+            <input type="checkbox" formControlName="isFoster" />
+            Foster
+          </label>
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="!addForm.valid">Create adoption</button>
+    </form>
+
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Id</th>
+        <th>UserId</th>
+        <th>AnimalId</th>
+        <th>Foster</th>
+        <th>Date</th>
+        <th *ngIf="isAdmin">Actions</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let a of adoptions">
+        <td>{{ a.id }}</td>
+        <td>{{ a.userId }}</td>
+        <td>{{ a.animalId }}</td>
+        <td>{{ a.isFoster ? 'Yes' : 'No' }}</td>
+        <td>{{ a.adoptionDate | date:'yyyy-MM-dd' }}</td>
+
+        <td *ngIf="isAdmin">
+          <button (click)="delete(a)">Delete</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>

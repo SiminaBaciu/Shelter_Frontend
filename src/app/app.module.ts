@@ -13,18 +13,14 @@ import { LogoutComponent } from './logout/logout.component';
 import { AuthenticatedComponent } from './authenticated/authenticated.component';
 import { JwtInterceptor } from './jwt.interceptor';
 import { NavbarComponent } from './navbar/navbar.component';
-import { DeviceComponent } from './device/device.component';
-import { UserDeviceComponent } from './userDevice/userDevice.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
-import { SensorDataComponent } from './monitoring/monitoring.component';
 import { NgChartsModule } from 'ng2-charts';
-import { WebSocketService } from './notification/websockets.service';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { AdminChatComponent } from './chat/adminChat.component';
-import { UserChatComponent } from './chat/userChat.component';
+import { AnimalsComponent } from './animal/animal.component';
+import { AdoptionComponent } from './adoption/adoption.component';
 
 @NgModule({
   declarations: [
@@ -34,13 +30,8 @@ import { UserChatComponent } from './chat/userChat.component';
     LogoutComponent,
     AuthenticatedComponent, 
     NavbarComponent,
-    DeviceComponent,
-    UserDeviceComponent,
-    SensorDataComponent, 
-    AdminChatComponent,
-    UserChatComponent,
-    AdminChatComponent,
-    UserChatComponent
+    AnimalsComponent,
+    AdoptionComponent
   ],
   imports: [
     BrowserModule,

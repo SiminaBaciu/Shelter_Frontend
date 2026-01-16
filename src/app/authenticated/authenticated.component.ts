@@ -6,7 +6,6 @@ import jwt_decode from 'jwt-decode';
 @Component({
   selector: 'app-authenticated',
   templateUrl: './authenticated.component.html',
- 
 })
 export class AuthenticatedComponent implements OnInit {
   isUserLoggedIn = false;
@@ -14,44 +13,39 @@ export class AuthenticatedComponent implements OnInit {
   isUser = false;
   title = 'Authentication';
 
-
-  constructor(private authService: AuthService,
-    private router: Router
-  ) {
-  }
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
-    this.isUserLoggedIn = this.authService.isLoggedIn();
+    const userValue = this.authService.getUserValue(); // reads localStorage 'userValue'
+    const token = userValue?.token;
 
-    if (this.isUserLoggedIn) {
-      const user = this.authService.getUserValue();
-      const token = user.token;
-      console.log("TOken", token)
+    this.isUserLoggedIn = !!token;
 
-      if (token) {
-        const decodedToken: any = jwt_decode(token);
-        console.log(decodedToken);
-
-        const currentTime = new Date().getTime() / 1000;
-        const remainingTime = decodedToken.exp - currentTime;
-
-        if (remainingTime < 0) {
-          this.logout();
-        }
-        else {
-          const role = this.authService.getRole();
-          this.isAdmin = role === 'ROLE_ADMIN';
-          this.isUser = role === 'ROLE_USER';
-        }
-      } else {
-        this.logout();
-      }
-    } else {
+    if (!token) {
       this.logout();
+      return;
     }
 
-  }
+    // Validate token expiration
+    try {
+      const decodedToken: any = jwt_decode(token);
+      const currentTime = Date.now() / 1000;
 
+      if (decodedToken?.exp && decodedToken.exp < currentTime) {
+        this.logout();
+        return;
+      }
+    } catch (e) {
+      this.logout();
+      return;
+    }
+
+    // roles are: { authority: string }[]
+    const authorities: string[] = (userValue?.roles || []).map(r => r.authority);
+
+    this.isAdmin = authorities.includes('ROLE_ADMIN');
+    this.isUser = authorities.includes('ROLE_USER');
+  }
 
   logout() {
     this.authService.logout();

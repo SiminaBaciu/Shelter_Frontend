@@ -3,9 +3,7 @@ import { User, UserService } from '../users/users.service';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { WebSocketService } from '../notification/websockets.service';
 import { Router } from '@angular/router';
-import { SharedService } from '../chat/shared.service';
 
 @Component({
     selector: 'app-users',
@@ -24,7 +22,7 @@ export class UsersComponent implements OnInit {
 
     notifications: string[] = [];
 
-    constructor(private sharedService: SharedService, private userService: UserService, private authService: AuthService, private webSocketService: WebSocketService, private router: Router) {
+    constructor(private userService: UserService, private authService: AuthService, private router: Router) {
         this.addUserForm = new FormGroup({
             username: new FormControl('', Validators.required),
             password: new FormControl('', Validators.required),
@@ -118,17 +116,6 @@ export class UsersComponent implements OnInit {
             );
         }
     }
-
-    /*
-        ngOnDestroy() {
-            this.webSocketService.disconnect();
-        }
-    */
-        selectForMessaging(user: User): void {
-            this.sharedService.changeUser(user);
-            this.router.navigate(['/admin-chat']);
-        }
-        
 
 
     cancelUpdate(): void {
